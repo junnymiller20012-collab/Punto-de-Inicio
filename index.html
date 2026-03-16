@@ -1559,6 +1559,7 @@
       .price-card { padding: 24px 20px; }
       .price-card-top { flex-direction: row; align-items: flex-start; gap: 8px; }
       .price-amount .amount { font-size: 44px; }
+      #precios [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
       .reg-right-header h3 { font-size: 22px; }
       .reg-urgency { padding: 10px 14px; }
 
@@ -1584,24 +1585,24 @@
           <div class="form-row">
             <div class="form-group">
               <label>Nombre</label>
-              <input type="text" placeholder="Tu nombre" required />
+              <input type="text" name="modal_nombre" placeholder="Tu nombre" required />
             </div>
             <div class="form-group">
               <label>Apellido</label>
-              <input type="text" placeholder="Tu apellido" required />
+              <input type="text" name="modal_apellido" placeholder="Tu apellido" required />
             </div>
           </div>
           <div class="form-group">
             <label>Correo electrónico</label>
-            <input type="email" placeholder="tu@correo.com" required />
+            <input type="email" name="modal_email" placeholder="tu@correo.com" required />
           </div>
           <div class="form-group">
             <label>WhatsApp / Teléfono</label>
-            <input type="tel" placeholder="+1 (555) 000-0000" required />
+            <input type="tel" name="modal_phone" placeholder="+1 (555) 000-0000" required />
           </div>
           <div class="form-group">
             <label>¿Dónde estás ahora?</label>
-            <select required>
+            <select name="modal_situacion" required>
               <option value="" disabled selected>Selecciona tu situación actual</option>
               <option>Trabajo por cuenta ajena, quiero emprender</option>
               <option>Tengo negocio pero no tengo sistema</option>
@@ -2222,6 +2223,63 @@
     </div>
   </section>
 
+  <!-- ═══ PRECIOS BOOTCAMP ═══ -->
+  <section id="precios" class="section">
+    <div class="container">
+      <div class="planes-header">
+        <div class="tag">Bootcamp · Punto de Inicio</div>
+        <h2>Elige tu acceso.</h2>
+        <p>5 días en vivo para cambiar tu dirección. Elige el nivel que se ajusta a ti.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:740px;margin:0 auto;">
+
+        <!-- $49 Esencial -->
+        <div class="price-card" onclick="openModal('esencial','Acceso Esencial','49')">
+          <div class="price-card-top">
+            <div>
+              <div class="price-card-label">ACCESO</div>
+              <div class="price-card-name">Esencial</div>
+            </div>
+            <div class="price-amount">
+              <span class="currency">$</span><span class="amount">49</span>
+            </div>
+          </div>
+          <ul class="price-features">
+            <li>5 días de bootcamp en vivo</li>
+            <li>Acceso a grabaciones</li>
+            <li>Comunidad privada</li>
+            <li class="disabled">Sesión 1:1 con mentor</li>
+            <li class="disabled">Seguimiento personalizado</li>
+          </ul>
+          <span class="btn btn-outline" style="pointer-events:none">Quiero este acceso →</span>
+        </div>
+
+        <!-- $99 Pro -->
+        <div class="price-card" onclick="openModal('pro','Acceso Pro','99')">
+          <div class="price-card-badge">Más completo</div>
+          <div class="price-card-top">
+            <div>
+              <div class="price-card-label">ACCESO</div>
+              <div class="price-card-name">Pro</div>
+            </div>
+            <div class="price-amount">
+              <span class="currency">$</span><span class="amount">99</span>
+            </div>
+          </div>
+          <ul class="price-features">
+            <li>5 días de bootcamp en vivo</li>
+            <li>Acceso a grabaciones</li>
+            <li>Comunidad privada</li>
+            <li>Sesión 1:1 con mentor</li>
+            <li>Seguimiento personalizado</li>
+          </ul>
+          <span class="btn btn-primary" style="pointer-events:none">Quiero este acceso →</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ PLANES ═══ -->
   <section id="planes" class="section">
     <div class="container">
@@ -2624,7 +2682,7 @@
       }
     });
 
-    // ── Join form submit → GoHighLevel + Formspree
+    // ── Join form submit → GoHighLevel (contact + opportunity) + Formspree backup
     async function handleJoinSubmit(e) {
       e.preventDefault();
       const form   = document.getElementById('joinForm');
@@ -2641,48 +2699,146 @@
       btn.textContent = 'Enviando...';
       btn.disabled = true;
 
-      // ── 1. GoHighLevel Contacts API (primary)
-      const ghlPayload = {
-        locationId:  'ZVleQWbdtp7RtPFsHDig',
-        firstName:   nombre,
-        lastName:    apellido,
-        email:       email,
-        phone:       phone,
-        tags:        ['Punto de Inicio', 'Bootcamp Lead'],
-        source:      'Punto de Inicio Landing Page',
-        customFields: [{ key: 'situacion', value: situacion }]
+      const GHL_HEADERS = {
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer pit-e536d62c-9dbc-4f33-8b15-d6a65cc20874',
+        'Version':       '2021-07-28'
       };
 
-      // ── 2. Formspree backup
+      // ── Formspree backup (fire and forget)
       const formData = new FormData(form);
       formData.set('whatsapp', phone);
+      fetch('https://formspree.io/f/xnjggoye', {
+        method:  'POST',
+        headers: { 'Accept': 'application/json' },
+        body:    formData
+      });
 
       try {
-        const [ghlRes, fsRes] = await Promise.all([
-          fetch('https://services.leadconnectorhq.com/contacts/', {
-            method:  'POST',
-            headers: {
-              'Content-Type':  'application/json',
-              'Authorization': 'Bearer pit-3535c9c4-fd5e-4a16-9f31-df08d6456a41',
-              'Version':       '2021-07-28'
-            },
-            body: JSON.stringify(ghlPayload)
-          }),
-          fetch('https://formspree.io/f/xnjggoye', {
-            method:  'POST',
-            headers: { 'Accept': 'application/json' },
-            body:    formData
+        // 1. Create contact
+        const contactRes = await fetch('https://services.leadconnectorhq.com/contacts/', {
+          method:  'POST',
+          headers: GHL_HEADERS,
+          body: JSON.stringify({
+            locationId:   'ZVleQWbdtp7RtPFsHDig',
+            firstName:    nombre,
+            lastName:     apellido,
+            email:        email,
+            phone:        phone,
+            tags:         ['Punto de Inicio', 'Bootcamp Lead', 'Free Registration'],
+            source:       'Punto de Inicio Landing Page',
+            customFields: [{ key: 'situacion', value: situacion }]
           })
-        ]);
+        });
 
-        if (ghlRes.ok || fsRes.ok) {
-          document.getElementById('joinFormWrap').style.display = 'none';
-          document.getElementById('joinSuccess').style.display  = 'block';
-        } else {
-          throw new Error('Both submissions failed');
-        }
+        if (!contactRes.ok) throw new Error('Contact creation failed');
+        const { contact } = await contactRes.json();
+
+        // 2. Create opportunity in pipeline
+        await fetch('https://services.leadconnectorhq.com/opportunities/', {
+          method:  'POST',
+          headers: GHL_HEADERS,
+          body: JSON.stringify({
+            locationId:      'ZVleQWbdtp7RtPFsHDig',
+            pipelineId:      'wcGV14N1crfCSYcEDy2k',
+            pipelineStageId: '3baa823f-836b-4c42-992b-c51532379cd2',
+            contactId:       contact.id,
+            name:            'Bootcamp Lead — ' + nombre + ' ' + apellido,
+            monetaryValue:   0,
+            status:          'open'
+          })
+        });
+
+        document.getElementById('joinFormWrap').style.display = 'none';
+        document.getElementById('joinSuccess').style.display  = 'block';
+
       } catch {
         btn.textContent = '→ Quiero mi lugar en el bootcamp';
+        btn.disabled = false;
+        alert('Hubo un error. Intenta de nuevo.');
+      }
+    }
+
+    // ── Modal open / close
+    function openModal(planId, planTag, price) {
+      document.getElementById('selectedPlan').value     = planId;
+      document.getElementById('modalPlanTag').textContent = planTag;
+      document.getElementById('modalPrice').textContent   = '$' + price;
+      document.getElementById('submitPrice').textContent  = '$' + price;
+      document.getElementById('modalOverlay').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // ── Modal form submit → GoHighLevel (contact + opportunity)
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn  = form.querySelector('[type="submit"]');
+
+      const plan      = document.getElementById('selectedPlan').value;
+      const price     = document.getElementById('modalPrice').textContent.replace('$', '');
+      const planTag   = document.getElementById('modalPlanTag').textContent;
+
+      const nombre    = form.querySelector('[name="modal_nombre"]').value.trim();
+      const apellido  = form.querySelector('[name="modal_apellido"]').value.trim();
+      const email     = form.querySelector('[name="modal_email"]').value.trim();
+      const phone     = form.querySelector('[name="modal_phone"]').value.trim();
+      const situacion = form.querySelector('[name="modal_situacion"]').value;
+
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+
+      const GHL_HEADERS = {
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer pit-e536d62c-9dbc-4f33-8b15-d6a65cc20874',
+        'Version':       '2021-07-28'
+      };
+
+      try {
+        // 1. Create contact
+        const contactRes = await fetch('https://services.leadconnectorhq.com/contacts/', {
+          method:  'POST',
+          headers: GHL_HEADERS,
+          body: JSON.stringify({
+            locationId:   'ZVleQWbdtp7RtPFsHDig',
+            firstName:    nombre,
+            lastName:     apellido,
+            email:        email,
+            phone:        phone,
+            tags:         ['Punto de Inicio', 'Bootcamp Lead', planTag, 'Plan $' + price],
+            source:       'Punto de Inicio Landing Page',
+            customFields: [{ key: 'situacion', value: situacion }]
+          })
+        });
+
+        if (!contactRes.ok) throw new Error('Contact creation failed');
+        const { contact } = await contactRes.json();
+
+        // 2. Create opportunity linked to the contact
+        await fetch('https://services.leadconnectorhq.com/opportunities/', {
+          method:  'POST',
+          headers: GHL_HEADERS,
+          body: JSON.stringify({
+            locationId:     'ZVleQWbdtp7RtPFsHDig',
+            pipelineId:     'wcGV14N1crfCSYcEDy2k',
+            pipelineStageId:'3baa823f-836b-4c42-992b-c51532379cd2',
+            contactId:      contact.id,
+            name:           'Bootcamp $' + price + ' — ' + nombre + ' ' + apellido,
+            monetaryValue:  parseFloat(price),
+            status:         'open'
+          })
+        });
+
+        document.getElementById('formState').style.display    = 'none';
+        document.getElementById('successState').style.display = 'block';
+
+      } catch {
+        btn.textContent = '→ Confirmar mi lugar — $' + price;
         btn.disabled = false;
         alert('Hubo un error. Intenta de nuevo.');
       }
