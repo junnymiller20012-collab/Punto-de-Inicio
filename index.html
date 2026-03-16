@@ -244,9 +244,6 @@
       gap: 40px;
     }
     .about-logo-wrap {
-      background: var(--gray-dark);
-      border: 1px solid rgba(255,255,255,0.06);
-      padding: 60px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -902,7 +899,70 @@
       font-size: 16px;
       color: rgba(255,255,255,0.5);
       font-style: italic;
-      margin-bottom: 36px;
+      margin-bottom: 32px;
+    }
+    .countdown-wrap {
+      margin-bottom: 0;
+    }
+    .countdown-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+    .countdown-grid {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .countdown-slot {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      width: 72px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .countdown-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      color: var(--white);
+      line-height: 1;
+      display: block;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .countdown-num.flip-out {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    .countdown-num.flip-in {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    .countdown-unit-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      font-weight: 600;
+    }
+    .countdown-sep {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 18px;
     }
     .reg-meta {
       display: flex;
@@ -1512,7 +1572,7 @@
       .nav-links { display: none; }
       h2 { font-size: 48px; }
       .hero-stats { gap: 32px; }
-      .about-logo-wrap { padding: 40px; }
+
       .about-logo-wrap img { width: 120px; }
       .evento-bg-text { font-size: 80px; }
       /* registro tablet — stack vertically */
@@ -1662,6 +1722,33 @@
             Punto<br />de <span>Inicio</span>
           </h1>
           <p class="reg-tagline">El momento de empezar es ahora. No mañana.</p>
+
+          <!-- COUNTDOWN -->
+          <div class="countdown-wrap">
+            <p class="countdown-label">El bootcamp comienza en</p>
+            <div class="countdown-grid">
+              <div class="countdown-unit">
+                <div class="countdown-slot"><span class="countdown-num" id="cd-days">00</span></div>
+                <div class="countdown-unit-label">Días</div>
+              </div>
+              <div class="countdown-sep">:</div>
+              <div class="countdown-unit">
+                <div class="countdown-slot"><span class="countdown-num" id="cd-hours">00</span></div>
+                <div class="countdown-unit-label">Horas</div>
+              </div>
+              <div class="countdown-sep">:</div>
+              <div class="countdown-unit">
+                <div class="countdown-slot"><span class="countdown-num" id="cd-minutes">00</span></div>
+                <div class="countdown-unit-label">Min</div>
+              </div>
+              <div class="countdown-sep">:</div>
+              <div class="countdown-unit">
+                <div class="countdown-slot"><span class="countdown-num" id="cd-seconds">00</span></div>
+                <div class="countdown-unit-label">Seg</div>
+              </div>
+            </div>
+          </div>
+
           </div><!-- /.reg-left-inner -->
         </div>
 
@@ -2756,6 +2843,51 @@
         }
       });
     });
+  </script>
+
+  <script>
+    // Countdown to April 1, 2026 at 8:00 PM
+    const TARGET = new Date('2026-04-01T20:00:00');
+
+    const elDays    = document.getElementById('cd-days');
+    const elHours   = document.getElementById('cd-hours');
+    const elMinutes = document.getElementById('cd-minutes');
+    const elSeconds = document.getElementById('cd-seconds');
+
+    function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
+
+    function animateFlip(el, newVal) {
+      if (el.textContent === newVal) return;
+      el.classList.add('flip-out');
+      setTimeout(() => {
+        el.textContent = newVal;
+        el.classList.remove('flip-out');
+        el.classList.add('flip-in');
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            el.classList.remove('flip-in');
+          });
+        });
+      }, 300);
+    }
+
+    function tick() {
+      const now  = new Date();
+      const diff = Math.max(0, TARGET - now);
+
+      const days    = Math.floor(diff / 86400000);
+      const hours   = Math.floor((diff % 86400000) / 3600000);
+      const minutes = Math.floor((diff % 3600000)  / 60000);
+      const seconds = Math.floor((diff % 60000)    / 1000);
+
+      animateFlip(elDays,    pad(days));
+      animateFlip(elHours,   pad(hours));
+      animateFlip(elMinutes, pad(minutes));
+      animateFlip(elSeconds, pad(seconds));
+    }
+
+    tick();
+    setInterval(tick, 1000);
   </script>
 </body>
 </html>
