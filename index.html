@@ -1,0 +1,2675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Punto de Inicio — Mentes Maestras Bootcamp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --red: #cc0000;
+      --red-bright: #ff1a1a;
+      --white: #ffffff;
+      --gray-light: #f0f0f0;
+      --gray-mid: #888888;
+      --gray-dark: #1a1a1a;
+      --gray-card: #111111;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── UTILITY ─── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 100px 0; }
+    .section-sm { padding: 60px 0; }
+    .text-red { color: var(--red-bright); }
+    .text-gray { color: var(--gray-mid); }
+    .tag {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      margin-bottom: 20px;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-block;
+      padding: 16px 36px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: var(--red-bright); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .btn-outline:hover { border-color: var(--white); transform: translateY(-2px); }
+    .btn-white {
+      background: var(--white);
+      color: var(--black);
+    }
+    .btn-white:hover { background: var(--gray-light); transform: translateY(-2px); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      padding: 18px 0;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo img { height: 38px; }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(180,0,0,0.12) 0%, transparent 70%),
+        linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%);
+    }
+    .hero-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .hero-line {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(204,0,0,0.4), transparent);
+    }
+    .hero-content { position: relative; z-index: 3; max-width: 780px; }
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .hero-eyebrow span {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+    }
+    .hero-eyebrow-line { width: 40px; height: 1px; background: var(--red); }
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 12vw, 140px);
+      line-height: 0.92;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    h1 em {
+      font-style: normal;
+      color: var(--red-bright);
+      display: block;
+    }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 19px);
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 44px;
+    }
+    .hero-sub strong { color: var(--white); font-weight: 700; }
+    .hero-ctas { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 72px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
+    }
+    .stat-item {}
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      letter-spacing: 1px;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--gray-mid);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ─── MANIFESTO STRIP ─── */
+    .manifesto-strip {
+      background: var(--red);
+      padding: 24px 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 60px;
+      animation: marquee 20s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-track span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      flex-shrink: 0;
+    }
+    .marquee-track span.dot { color: rgba(255,255,255,0.4); }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--black); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-logo-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 40px;
+    }
+    .about-logo-wrap {
+      background: var(--gray-dark);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 60px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-logo-wrap img { width: 160px; }
+    .manifesto-quote {
+      border-left: 3px solid var(--red);
+      padding-left: 24px;
+    }
+    .manifesto-quote p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.9;
+      font-style: italic;
+    }
+    h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .about-body {
+      font-size: 16px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.85;
+      margin-bottom: 32px;
+    }
+    .about-body strong { color: var(--white); }
+    .manifesto-line {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--red-bright);
+      letter-spacing: 1px;
+      margin-bottom: 36px;
+      line-height: 1.2;
+    }
+
+    /* ─── MÉTODO 3D ─── */
+    #metodo { background: var(--gray-dark); }
+    .metodo-header { text-align: center; margin-bottom: 64px; }
+    .metodo-header p { color: var(--gray-mid); font-size: 16px; max-width: 480px; margin: 16px auto 0; }
+    .metodo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .metodo-card {
+      background: var(--black);
+      padding: 52px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .metodo-card:hover { transform: translateY(-4px); }
+    .metodo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .metodo-card:hover::before { transform: scaleX(1); }
+    .metodo-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      position: absolute;
+      top: 20px;
+      right: 24px;
+    }
+    .metodo-icon {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 16px;
+    }
+    .metodo-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+    .metodo-card p { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    /* ─── SERVICES ─── */
+    #servicios { background: var(--black); }
+    .services-header { margin-bottom: 64px; }
+    .services-header p { color: var(--gray-mid); font-size: 16px; max-width: 480px; margin-top: 12px; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+    .service-card {
+      background: var(--gray-card);
+      padding: 48px 40px;
+      border: 1px solid rgba(255,255,255,0.04);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+    .service-card:hover { border-color: rgba(204,0,0,0.3); }
+    .service-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
+    .service-card p { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.75; }
+    .service-arrow {
+      position: absolute;
+      bottom: 32px;
+      right: 32px;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--gray-mid);
+      transition: all 0.2s ease;
+    }
+    .service-card:hover .service-arrow {
+      background: var(--red);
+      border-color: var(--red);
+      color: var(--white);
+    }
+
+    /* ─── EVENT ─── */
+    #evento {
+      background: var(--gray-dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .evento-bg-text {
+      position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 200px;
+      color: rgba(255,255,255,0.015);
+      letter-spacing: 10px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .evento-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .evento-left {}
+    .evento-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(204,0,0,0.15);
+      border: 1px solid rgba(204,0,0,0.3);
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 28px;
+    }
+    .evento-left h2 { margin-bottom: 8px; }
+    .evento-subtitle {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      color: var(--gray-mid);
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+    }
+    .evento-desc {
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.8;
+      margin-bottom: 36px;
+      max-width: 460px;
+    }
+    .evento-right {
+      background: var(--black);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 48px 40px;
+    }
+    .evento-benefits { list-style: none; margin-bottom: 40px; }
+    .evento-benefits li {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+    }
+    .evento-benefits li:last-child { border-bottom: none; }
+    .benefit-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(204,0,0,0.15);
+      border: 1px solid rgba(204,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .benefit-icon svg { width: 12px; height: 12px; fill: var(--red-bright); }
+    .benefit-text strong { color: var(--white); display: block; font-size: 14px; margin-bottom: 2px; }
+    .evento-right .btn { width: 100%; text-align: center; display: block; }
+
+    /* ─── PLANES ─── */
+    #planes { background: var(--black); }
+    .planes-header { text-align: center; margin-bottom: 64px; }
+    .planes-header p { color: var(--gray-mid); font-size: 16px; max-width: 480px; margin: 16px auto 0; }
+    .planes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      align-items: stretch;
+    }
+    .plan-card {
+      background: var(--gray-card);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 48px 36px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    .plan-card:hover { transform: translateY(-6px); }
+    .plan-card.featured {
+      background: var(--gray-dark);
+      border-color: var(--red);
+      z-index: 1;
+    }
+    .plan-badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--red);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      white-space: nowrap;
+    }
+    .plan-level {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 12px;
+    }
+    .plan-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .plan-for {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      font-style: italic;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+    .plan-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin-bottom: 28px;
+    }
+    .plan-benefits { list-style: none; flex: 1; margin-bottom: 32px; }
+    .plan-benefits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      padding: 9px 0;
+      line-height: 1.5;
+    }
+    .plan-benefits li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--red);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .plan-card .btn { display: block; text-align: center; }
+
+    /* ─── TRIBU ─── */
+    #tribu {
+      background: var(--red);
+      padding: 100px 0;
+    }
+    .tribu-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .tribu-left h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 7vw, 80px);
+      line-height: 0.95;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .tribu-left p { font-size: 17px; color: rgba(255,255,255,0.75); line-height: 1.75; margin-bottom: 36px; }
+    .reglas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .regla-item {
+      background: rgba(0,0,0,0.2);
+      padding: 20px 18px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .regla-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: rgba(255,255,255,0.3);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .regla-item p {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* ─── RITUAL ─── */
+    #ritual { background: var(--gray-dark); }
+    .ritual-header { text-align: center; margin-bottom: 56px; }
+    .ritual-header p { color: var(--gray-mid); font-size: 16px; max-width: 500px; margin: 12px auto 0; }
+    .preguntas-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .pregunta-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: var(--black);
+      padding: 28px 32px;
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: border-color 0.2s ease;
+    }
+    .pregunta-item:hover { border-color: rgba(204,0,0,0.25); }
+    .pregunta-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      color: rgba(255,255,255,0.06);
+      line-height: 1;
+      min-width: 48px;
+    }
+    .pregunta-item p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 500;
+    }
+    .pregunta-item p strong { color: var(--white); }
+
+    /* ─── FINAL CTA ─── */
+    #final-cta {
+      background: var(--black);
+      text-align: center;
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(180,0,0,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta-content { position: relative; z-index: 2; }
+    .final-cta-content img { height: 60px; margin-bottom: 40px; opacity: 0.9; }
+    .final-cta-content h2 {
+      font-size: clamp(48px, 8vw, 96px);
+      margin-bottom: 16px;
+    }
+    .final-cta-content p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.5);
+      max-width: 460px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+    .final-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .final-tagline {
+      margin-top: 56px;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #050505;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    footer img { height: 28px; opacity: 0.6; }
+    .footer-text { font-size: 12px; color: rgba(255,255,255,0.25); letter-spacing: 0.5px; }
+    .footer-slogan {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.2);
+      text-transform: uppercase;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    /* ─── FALLING PATTERN ─── */
+    .falling-pattern {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .falling-pattern-streaks {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(4px 100px at 0px 235px, rgba(204,0,0,0.55), transparent),
+        radial-gradient(4px 100px at 300px 235px, rgba(204,0,0,0.55), transparent),
+        radial-gradient(1.5px 1.5px at 150px 117.5px, rgba(204,0,0,0.7) 100%, transparent 150%),
+        radial-gradient(4px 100px at 0px 252px, rgba(180,0,0,0.45), transparent),
+        radial-gradient(4px 100px at 300px 252px, rgba(180,0,0,0.45), transparent),
+        radial-gradient(1.5px 1.5px at 150px 126px, rgba(180,0,0,0.6) 100%, transparent 150%),
+        radial-gradient(4px 100px at 0px 150px, rgba(220,0,0,0.5), transparent),
+        radial-gradient(4px 100px at 300px 150px, rgba(220,0,0,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 150px 75px, rgba(220,0,0,0.65) 100%, transparent 150%),
+        radial-gradient(4px 100px at 0px 253px, rgba(160,0,0,0.4), transparent),
+        radial-gradient(4px 100px at 300px 253px, rgba(160,0,0,0.4), transparent),
+        radial-gradient(1.5px 1.5px at 150px 126.5px, rgba(160,0,0,0.55) 100%, transparent 150%),
+        radial-gradient(4px 100px at 0px 204px, rgba(200,0,0,0.5), transparent),
+        radial-gradient(4px 100px at 300px 204px, rgba(200,0,0,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 150px 102px, rgba(200,0,0,0.65) 100%, transparent 150%),
+        radial-gradient(4px 100px at 0px 134px, rgba(190,0,0,0.45), transparent),
+        radial-gradient(4px 100px at 300px 134px, rgba(190,0,0,0.45), transparent),
+        radial-gradient(1.5px 1.5px at 150px 67px, rgba(190,0,0,0.6) 100%, transparent 150%),
+        radial-gradient(4px 100px at 0px 179px, rgba(210,0,0,0.48), transparent),
+        radial-gradient(4px 100px at 300px 179px, rgba(210,0,0,0.48), transparent),
+        radial-gradient(1.5px 1.5px at 150px 89.5px, rgba(210,0,0,0.63) 100%, transparent 150%),
+        radial-gradient(4px 100px at 0px 299px, rgba(170,0,0,0.42), transparent),
+        radial-gradient(4px 100px at 300px 299px, rgba(170,0,0,0.42), transparent),
+        radial-gradient(1.5px 1.5px at 150px 149.5px, rgba(170,0,0,0.57) 100%, transparent 150%),
+        radial-gradient(4px 100px at 0px 215px, rgba(215,0,0,0.5), transparent),
+        radial-gradient(4px 100px at 300px 215px, rgba(215,0,0,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 150px 107.5px, rgba(215,0,0,0.65) 100%, transparent 150%),
+        radial-gradient(4px 100px at 0px 281px, rgba(175,0,0,0.43), transparent),
+        radial-gradient(4px 100px at 300px 281px, rgba(175,0,0,0.43), transparent),
+        radial-gradient(1.5px 1.5px at 150px 140.5px, rgba(175,0,0,0.58) 100%, transparent 150%),
+        radial-gradient(4px 100px at 0px 158px, rgba(205,0,0,0.47), transparent),
+        radial-gradient(4px 100px at 300px 158px, rgba(205,0,0,0.47), transparent),
+        radial-gradient(1.5px 1.5px at 150px 79px, rgba(205,0,0,0.62) 100%, transparent 150%),
+        radial-gradient(4px 100px at 0px 210px, rgba(185,0,0,0.44), transparent),
+        radial-gradient(4px 100px at 300px 210px, rgba(185,0,0,0.44), transparent),
+        radial-gradient(1.5px 1.5px at 150px 105px, rgba(185,0,0,0.59) 100%, transparent 150%);
+      background-size:
+        300px 235px, 300px 235px, 300px 235px,
+        300px 252px, 300px 252px, 300px 252px,
+        300px 150px, 300px 150px, 300px 150px,
+        300px 253px, 300px 253px, 300px 253px,
+        300px 204px, 300px 204px, 300px 204px,
+        300px 134px, 300px 134px, 300px 134px,
+        300px 179px, 300px 179px, 300px 179px,
+        300px 299px, 300px 299px, 300px 299px,
+        300px 215px, 300px 215px, 300px 215px,
+        300px 281px, 300px 281px, 300px 281px,
+        300px 158px, 300px 158px, 300px 158px,
+        300px 210px, 300px 210px, 300px 210px;
+      animation: fallingStreaks 80s linear infinite;
+    }
+    @keyframes fallingStreaks {
+      from {
+        background-position:
+          0px 220px, 3px 220px, 151.5px 337.5px,
+          25px 24px, 28px 24px, 176.5px 150px,
+          50px 16px, 53px 16px, 201.5px 91px,
+          75px 224px, 78px 224px, 226.5px 230.5px,
+          100px 19px, 103px 19px, 251.5px 121px,
+          125px 120px, 128px 120px, 276.5px 187px,
+          150px 31px, 153px 31px, 301.5px 120.5px,
+          175px 235px, 178px 235px, 326.5px 384.5px,
+          200px 121px, 203px 121px, 351.5px 228.5px,
+          225px 224px, 228px 224px, 376.5px 364.5px,
+          250px 26px, 253px 26px, 401.5px 105px,
+          275px 75px, 278px 75px, 426.5px 180px;
+      }
+      to {
+        background-position:
+          0px 6800px, 3px 6800px, 151.5px 6917.5px,
+          25px 13632px, 28px 13632px, 176.5px 13758px,
+          50px 5416px, 53px 5416px, 201.5px 5491px,
+          75px 17175px, 78px 17175px, 226.5px 17301.5px,
+          100px 5119px, 103px 5119px, 251.5px 5221px,
+          125px 8428px, 128px 8428px, 276.5px 8495px,
+          150px 9876px, 153px 9876px, 301.5px 9965.5px,
+          175px 13391px, 178px 13391px, 326.5px 13540.5px,
+          200px 14741px, 203px 14741px, 351.5px 14848.5px,
+          225px 18770px, 228px 18770px, 376.5px 18910.5px,
+          250px 5082px, 253px 5082px, 401.5px 5161px,
+          275px 6375px, 278px 6375px, 426.5px 6480px;
+      }
+    }
+    .falling-pattern-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 50% 50%, transparent 0, transparent 2px, rgba(10,10,10,0.88) 2px);
+      background-size: 8px 8px;
+    }
+
+    /* ─── REGISTRO BOOTCAMP (ABOVE THE FOLD) ─── */
+    #registro {
+      min-height: 100vh;
+      background: var(--black);
+      display: flex;
+      align-items: stretch;
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+    .reg-bg-glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 60% at 20% 50%, rgba(180,0,0,0.10) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(180,0,0,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .reg-bg-text {
+      position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(140px, 22vw, 280px);
+      color: rgba(255,255,255,0.02);
+      letter-spacing: 8px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+    .reg-left-inner { max-width: 520px; }
+    .reg-layout {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    /* LEFT — copy */
+    .reg-left {
+      padding: 120px 64px 80px max(40px, calc((100vw - 1200px) / 2 + 40px));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .reg-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .reg-brand img { height: 36px; }
+    .reg-brand-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+    }
+    .reg-presenta {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 16px;
+    }
+    .reg-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 7vw, 90px);
+      line-height: 0.92;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .reg-title span { color: var(--red-bright); }
+    .reg-tagline {
+      font-size: 16px;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+      margin-bottom: 36px;
+    }
+    .reg-meta {
+      display: flex;
+      gap: 28px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .reg-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    .reg-meta-dot {
+      width: 5px; height: 5px;
+      background: var(--red);
+      border-radius: 50%;
+    }
+    .reg-dias {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 40px;
+    }
+    .reg-dia {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 12px 8px;
+      text-align: center;
+      transition: border-color 0.2s ease;
+    }
+    .reg-dia:hover { border-color: rgba(204,0,0,0.3); }
+    .reg-dia-num {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 5px;
+    }
+    .reg-dia-name {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.3;
+      letter-spacing: 0.3px;
+    }
+    .reg-urgency {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(204,0,0,0.08);
+      border: 1px solid rgba(204,0,0,0.2);
+      padding: 12px 16px;
+    }
+    .reg-urgency-dot {
+      width: 8px; height: 8px;
+      background: var(--red-bright);
+      border-radius: 50%;
+      animation: pulse 1.4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+    .reg-urgency p {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+    .reg-urgency span { color: var(--red-bright); }
+
+    /* RIGHT — pricing cards */
+    .reg-right {
+      background: rgba(17,17,17,0.75);
+      backdrop-filter: blur(12px);
+      border-left: 1px solid rgba(255,255,255,0.06);
+      padding: 120px max(40px, calc((100vw - 1200px) / 2 + 40px)) 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+    .reg-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+    .reg-right-header {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .reg-right-header p {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 8px;
+    }
+    .reg-right-header h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 34px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    /* phone combo */
+    .phone-wrap { display: flex; gap: 0; position: relative; }
+
+    .cc-trigger {
+      width: 90px;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-right: none;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 0 10px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+      transition: border-color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+    .cc-trigger:hover, .cc-trigger.open { border-color: var(--red); background: rgba(204,0,0,0.06); }
+    .cc-trigger .cc-flag { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: rgba(255,255,255,0.6); }
+    .cc-trigger .cc-val { font-size: 13px; font-weight: 700; }
+    .cc-trigger .cc-arrow {
+      margin-left: auto;
+      width: 8px; height: 8px;
+      border-right: 1.5px solid rgba(255,255,255,0.4);
+      border-bottom: 1.5px solid rgba(255,255,255,0.4);
+      transform: rotate(45deg) translateY(-2px);
+      transition: transform 0.2s;
+    }
+    .cc-trigger.open .cc-arrow { transform: rotate(-135deg) translateY(-2px); }
+
+    .cc-dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      width: 320px;
+      background: #1c1c1c;
+      border: 1px solid rgba(204,0,0,0.35);
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+      border-radius: 2px;
+    }
+    .cc-dropdown.open { display: flex; }
+
+    .cc-search-wrap {
+      padding: 10px 10px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .cc-search {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(204,0,0,0.3);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      padding: 9px 12px;
+      outline: none;
+    }
+    .cc-search::placeholder { color: rgba(255,255,255,0.3); }
+    .cc-search:focus { border-color: var(--red); }
+
+    .cc-list {
+      overflow-y: auto;
+      max-height: 220px;
+    }
+    .cc-list::-webkit-scrollbar { width: 4px; }
+    .cc-list::-webkit-scrollbar-track { background: transparent; }
+    .cc-list::-webkit-scrollbar-thumb { background: rgba(204,0,0,0.4); }
+
+    .cc-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 14px;
+      cursor: pointer;
+      gap: 10px;
+      transition: background 0.15s;
+    }
+    .cc-item:hover { background: rgba(255,255,255,0.05); }
+    .cc-item.selected { background: rgba(204,0,0,0.18); }
+    .cc-item-iso {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.4);
+      width: 22px;
+      flex-shrink: 0;
+    }
+    .cc-item-name {
+      flex: 1;
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+    }
+    .cc-item-code {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .phone-number {
+      flex: 1;
+      min-width: 0;
+      height: 48px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      padding: 0 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .phone-number::placeholder { color: rgba(255,255,255,0.2); }
+    .phone-number:focus { border-color: var(--red); }
+
+    /* join form */
+    .join-form-wrap { width: 100%; max-width: 480px; }
+    .join-form { display: flex; flex-direction: column; gap: 14px; }
+    .join-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .join-submit {
+      width: 100%;
+      text-align: center;
+      margin-top: 6px;
+      padding: 18px;
+      font-size: 13px;
+    }
+    .join-legal {
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.22);
+      letter-spacing: 0.3px;
+      margin-top: 4px;
+    }
+
+    /* ── A2P SMS Consent ── */
+    .sms-consent {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 14px 16px;
+      margin-top: 4px;
+    }
+    .sms-consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .sms-consent-label input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .sms-consent-check {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      border: 2px solid rgba(255,255,255,0.25);
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .sms-consent-label input:checked ~ .sms-consent-check {
+      border-color: var(--red);
+      background: var(--red);
+    }
+    .sms-consent-label input:checked ~ .sms-consent-check::after {
+      content: '';
+      width: 5px;
+      height: 9px;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      transform: rotate(45deg) translate(-1px, -1px);
+      display: block;
+    }
+    .sms-consent-text {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+    }
+    .sms-consent-text strong { color: rgba(255,255,255,0.7); }
+    .sms-link {
+      color: var(--red-bright);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .sms-link:hover { color: var(--white); }
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+    .join-success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .join-success-icon {
+      width: 60px; height: 60px;
+      background: rgba(204,0,0,0.15);
+      border: 1px solid rgba(204,0,0,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--red-bright);
+      margin: 0 auto 20px;
+    }
+    .join-success h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 44px;
+      letter-spacing: 1px;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .join-success p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .join-success-sub {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      font-weight: 700;
+    }
+
+    /* pricing card */
+    .price-card {
+      background: var(--black);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 28px 28px 24px;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .price-card:hover { border-color: rgba(204,0,0,0.35); transform: translateY(-2px); }
+    .price-card.selected { border-color: var(--red); }
+    .price-card-badge {
+      position: absolute;
+      top: -1px; right: 20px;
+      background: var(--red);
+      color: var(--white);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+    }
+    .price-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .price-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 6px;
+    }
+    .price-card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .price-amount {
+      text-align: right;
+    }
+    .price-amount .amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      line-height: 1;
+      color: var(--white);
+      letter-spacing: 1px;
+    }
+    .price-amount .currency {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--red-bright);
+      vertical-align: super;
+      line-height: 1;
+    }
+    .price-features {
+      list-style: none;
+      margin-bottom: 22px;
+    }
+    .price-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .price-features li:last-child { border-bottom: none; }
+    .price-features li.disabled { color: rgba(255,255,255,0.2); }
+    .price-features li.disabled .feat-icon { background: rgba(255,255,255,0.05); }
+    .feat-icon {
+      width: 18px; height: 18px;
+      background: rgba(204,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 9px;
+      color: var(--red-bright);
+      font-weight: 900;
+    }
+    .feat-icon.disabled-x {
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.2);
+    }
+    .price-card .btn { display: block; text-align: center; width: 100%; }
+
+    /* form modal overlay */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-box {
+      background: var(--gray-dark);
+      border: 1px solid rgba(255,255,255,0.08);
+      max-width: 520px;
+      width: 100%;
+      padding: 48px 40px;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      color: var(--white);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.12); }
+    .modal-plan-tag {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      margin-bottom: 16px;
+    }
+    .modal-box h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 6px;
+      line-height: 1;
+    }
+    .modal-price-line {
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 32px;
+    }
+    .modal-price-line strong {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--red-bright);
+      letter-spacing: 1px;
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      padding: 13px 16px;
+      outline: none;
+      transition: border-color 0.2s ease;
+      -webkit-appearance: none;
+    }
+    .form-group input::placeholder { color: rgba(255,255,255,0.2); }
+    .form-group input:focus,
+    .form-group select:focus { border-color: var(--red); }
+    .form-group select {
+      background-color: var(--gray-dark);
+      cursor: pointer;
+    }
+    .form-group select option { background: var(--gray-dark); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-submit {
+      margin-top: 24px;
+    }
+    .form-submit .btn {
+      width: 100%;
+      text-align: center;
+      display: block;
+      font-size: 13px;
+      padding: 18px;
+    }
+    .form-legal {
+      margin-top: 12px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      text-align: center;
+      line-height: 1.5;
+    }
+    .success-state {
+      text-align: center;
+      padding: 20px 0;
+      display: none;
+    }
+    .success-icon {
+      width: 64px; height: 64px;
+      background: rgba(204,0,0,0.15);
+      border: 1px solid rgba(204,0,0,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 24px;
+    }
+    .success-state h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: var(--white);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .success-state p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+    @media (max-width: 900px) {
+      .about-grid,
+      .evento-inner,
+      .tribu-inner { grid-template-columns: 1fr; gap: 48px; }
+      .metodo-grid,
+      .services-grid,
+      .planes-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      h2 { font-size: 48px; }
+      .hero-stats { gap: 32px; }
+      .about-logo-wrap { padding: 40px; }
+      .about-logo-wrap img { width: 120px; }
+      .evento-bg-text { font-size: 80px; }
+      /* registro tablet — stack vertically */
+      .reg-layout { grid-template-columns: 1fr; }
+      .reg-left { padding: 100px 24px 40px; }
+      .reg-right { border-left: none; border-top: 1px solid rgba(255,255,255,0.06); padding: 48px 24px 64px; }
+    }
+
+    @media (max-width: 600px) {
+      /* global */
+      .section { padding: 64px 0; }
+      .btn { width: 100%; text-align: center; }
+      .reglas-grid { grid-template-columns: 1fr; }
+
+      /* hero */
+      h1 { font-size: 56px; }
+      .hero-ctas { flex-direction: column; align-items: stretch; }
+      .hero-stats { flex-direction: column; gap: 20px; padding-top: 28px; margin-top: 48px; }
+      .stat-number { font-size: 36px; }
+
+      /* nav */
+      .nav-cta .btn { padding: 12px 18px; font-size: 11px; }
+
+      /* registro */
+      .reg-left { padding: 88px 20px 32px; }
+      .reg-right { padding: 32px 20px 56px; }
+      .join-form-wrap { max-width: 100%; }
+      .reg-title { font-size: 64px; }
+      .reg-brand { margin-bottom: 24px; }
+      .reg-meta { gap: 16px; flex-wrap: wrap; }
+      .reg-dias {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+      }
+      .reg-dias .reg-dia:nth-child(4),
+      .reg-dias .reg-dia:nth-child(5) {
+        grid-column: span 1;
+      }
+      .reg-dia { padding: 10px 6px; }
+      .reg-dia-num { font-size: 9px; }
+      .reg-dia-name { font-size: 10px; }
+      .join-form-row { grid-template-columns: 1fr; }
+      .price-card { padding: 24px 20px; }
+      .price-card-top { flex-direction: row; align-items: flex-start; gap: 8px; }
+      .price-amount .amount { font-size: 44px; }
+      .reg-right-header h3 { font-size: 22px; }
+      .reg-urgency { padding: 10px 14px; }
+
+      /* modal */
+      .form-row { grid-template-columns: 1fr; }
+      .modal-box { padding: 28px 20px; }
+      .modal-box h3 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ MODAL DE REGISTRO ═══ -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="formState">
+        <div class="modal-plan-tag" id="modalPlanTag">Acceso Esencial</div>
+        <h3 id="modalPlanName">Punto de Inicio</h3>
+        <div class="modal-price-line">Bootcamp 5 días · <strong id="modalPrice">$49</strong></div>
+        <form onsubmit="handleSubmit(event)">
+          <input type="hidden" id="selectedPlan" value="esencial" />
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-group">
+              <label>Apellido</label>
+              <input type="text" placeholder="Tu apellido" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Correo electrónico</label>
+            <input type="email" placeholder="tu@correo.com" required />
+          </div>
+          <div class="form-group">
+            <label>WhatsApp / Teléfono</label>
+            <input type="tel" placeholder="+1 (555) 000-0000" required />
+          </div>
+          <div class="form-group">
+            <label>¿Dónde estás ahora?</label>
+            <select required>
+              <option value="" disabled selected>Selecciona tu situación actual</option>
+              <option>Trabajo por cuenta ajena, quiero emprender</option>
+              <option>Tengo negocio pero no tengo sistema</option>
+              <option>Ya facturo, necesito escalar</option>
+              <option>Líder / empresario que quiere construir equipo</option>
+            </select>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn btn-primary">→ Confirmar mi lugar — <span id="submitPrice">$49</span></button>
+          </div>
+          <p class="form-legal">Al registrarte aceptas recibir información del bootcamp. Cupos limitados a 150 personas.</p>
+        </form>
+      </div>
+      <div class="success-state" id="successState">
+        <div class="success-icon">✓</div>
+        <h3>¡Estás dentro!</h3>
+        <p>Revisa tu correo en los próximos minutos.<br />Bienvenido a Mentes Maestras.<br /><br /><em style="color:rgba(255,255,255,0.3)">El reloj ya corre.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ NAV ═══ -->
+  <nav>
+    <div class="container">
+      <a class="nav-logo" href="#hero"><img src="logo.png" alt="Mentes Maestras" /></a>
+      <ul class="nav-links">
+        <li><a href="#about">Nosotros</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#evento">Evento</a></li>
+        <li><a href="#planes">Planes</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#registro" class="btn btn-primary">Punto de Inicio →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ REGISTRO / ABOVE THE FOLD ═══ -->
+  <section id="registro">
+    <div class="falling-pattern">
+      <div class="falling-pattern-streaks"></div>
+      <div class="falling-pattern-overlay"></div>
+    </div>
+    <div class="reg-bg-glow"></div>
+    <div class="reg-bg-text">INICIO</div>
+    <div class="reg-layout">
+
+        <!-- LEFT: copy -->
+        <div class="reg-left">
+          <div class="reg-left-inner">
+          <div class="reg-brand">
+            <img src="logo.png" alt="Mentes Maestras" />
+            <span class="reg-brand-name">Mentes Maestras</span>
+          </div>
+          <div class="reg-presenta">Mentes Maestras presenta</div>
+          <h1 class="reg-title">
+            Punto<br />de <span>Inicio</span>
+          </h1>
+          <p class="reg-tagline">El momento de empezar es ahora. No mañana.</p>
+          <div class="reg-meta">
+            <div class="reg-meta-item">
+              <div class="reg-meta-dot"></div>
+              Bootcamp · 5 Días
+            </div>
+            <div class="reg-meta-item">
+              <div class="reg-meta-dot"></div>
+              150 Cupos
+            </div>
+            <div class="reg-meta-item">
+              <div class="reg-meta-dot"></div>
+              En Vivo por Zoom
+            </div>
+          </div>
+          <div class="reg-dias">
+            <div class="reg-dia">
+              <div class="reg-dia-num">Día 01</div>
+              <div class="reg-dia-name">Claridad Brutal</div>
+            </div>
+            <div class="reg-dia">
+              <div class="reg-dia-num">Día 02</div>
+              <div class="reg-dia-name">Identidad</div>
+            </div>
+            <div class="reg-dia">
+              <div class="reg-dia-num">Día 03</div>
+              <div class="reg-dia-name">Enemigo Invisible</div>
+            </div>
+            <div class="reg-dia">
+              <div class="reg-dia-num">Día 04</div>
+              <div class="reg-dia-name">Estrategia</div>
+            </div>
+            <div class="reg-dia">
+              <div class="reg-dia-num">Día 05</div>
+              <div class="reg-dia-name">Asociación</div>
+            </div>
+          </div>
+          <div class="reg-urgency">
+            <div class="reg-urgency-dot"></div>
+            <p>Cupos disponibles: <span>150 lugares · Se llenan rápido</span></p>
+          </div>
+          </div><!-- /.reg-left-inner -->
+        </div>
+
+        <!-- BOTTOM: join form -->
+        <div class="reg-right">
+          <div class="reg-right-header">
+            <p>Reserva tu lugar</p>
+            <h3>El primer paso es decidir.</h3>
+          </div>
+
+          <div class="join-form-wrap" id="joinFormWrap">
+            <form class="join-form" id="joinForm" onsubmit="handleJoinSubmit(event)">
+              <div class="join-form-row">
+                <div class="form-group">
+                  <label>Nombre</label>
+                  <input type="text" name="nombre" placeholder="Tu nombre" required />
+                </div>
+                <div class="form-group">
+                  <label>Apellido</label>
+                  <input type="text" name="apellido" placeholder="Tu apellido" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Correo electrónico</label>
+                <input type="email" name="email" placeholder="tu@correo.com" required />
+              </div>
+              <div class="form-group">
+                <label>WhatsApp</label>
+                <div class="phone-wrap">
+                  <!-- custom country picker trigger -->
+                  <div class="cc-trigger" id="ccTrigger" onclick="toggleCC()">
+                    <span class="cc-flag" id="ccFlag">US</span>
+                    <span class="cc-val" id="ccVal">+1</span>
+                    <span class="cc-arrow"></span>
+                  </div>
+                  <!-- dropdown -->
+                  <div class="cc-dropdown" id="ccDropdown">
+                    <div class="cc-search-wrap">
+                      <input class="cc-search" id="ccSearch" type="text" placeholder="Buscar país..." oninput="filterCC(this.value)" autocomplete="off" />
+                    </div>
+                    <div class="cc-list" id="ccList"></div>
+                  </div>
+                  <!-- hidden real select for form submission -->
+                  <select class="phone-code" id="phoneCode" style="display:none">
+                    <option value="+1">🇺🇸 +1</option>
+                    <option value="+1">🇨🇦 +1</option>
+                    <option value="+52">🇲🇽 +52</option>
+                    <option value="+502">🇬🇹 +502</option>
+                    <option value="+503">🇸🇻 +503</option>
+                    <option value="+504">🇭🇳 +504</option>
+                    <option value="+505">🇳🇮 +505</option>
+                    <option value="+506">🇨🇷 +506</option>
+                    <option value="+507">🇵🇦 +507</option>
+                    <option value="+53">🇨🇺 +53</option>
+                    <option value="+1-809">🇩🇴 +1-809</option>
+                    <option value="+509">🇭🇹 +509</option>
+                    <option value="+1-876">🇯🇲 +1-876</option>
+                    <option value="+1-787">🇵🇷 +1-787</option>
+                    <option value="+1-868">🇹🇹 +1-868</option>
+                    <option value="+1-246">🇧🇧 +1-246</option>
+                    <option value="+1-473">🇬🇩 +1-473</option>
+                    <option value="+1-758">🇱🇨 +1-758</option>
+                    <option value="+1-784">🇻🇨 +1-784</option>
+                    <option value="+1-268">🇦🇬 +1-268</option>
+                    <option value="+1-767">🇩🇲 +1-767</option>
+                    <option value="+1-869">🇰🇳 +1-869</option>
+                    <option value="+1-264">🇦🇮 +1-264</option>
+                    <option value="+1-284">🇻🇬 +1-284</option>
+                    <option value="+1-340">🇻🇮 +1-340</option>
+                    <option value="+1-345">🇰🇾 +1-345</option>
+                    <option value="+1-441">🇧🇲 +1-441</option>
+                    <option value="+1-649">🇹🇨 +1-649</option>
+                    <option value="+57">🇨🇴 +57</option>
+                    <option value="+58">🇻🇪 +58</option>
+                    <option value="+51">🇵🇪 +51</option>
+                    <option value="+56">🇨🇱 +56</option>
+                    <option value="+54">🇦🇷 +54</option>
+                    <option value="+55">🇧🇷 +55</option>
+                    <option value="+593">🇪🇨 +593</option>
+                    <option value="+591">🇧🇴 +591</option>
+                    <option value="+595">🇵🇾 +595</option>
+                    <option value="+598">🇺🇾 +598</option>
+                    <option value="+592">🇬🇾 +592</option>
+                    <option value="+597">🇸🇷 +597</option>
+                    <option value="+44">🇬🇧 +44</option>
+                    <option value="+33">🇫🇷 +33</option>
+                    <option value="+49">🇩🇪 +49</option>
+                    <option value="+34">🇪🇸 +34</option>
+                    <option value="+39">🇮🇹 +39</option>
+                    <option value="+351">🇵🇹 +351</option>
+                    <option value="+31">🇳🇱 +31</option>
+                    <option value="+32">🇧🇪 +32</option>
+                    <option value="+41">🇨🇭 +41</option>
+                    <option value="+43">🇦🇹 +43</option>
+                    <option value="+46">🇸🇪 +46</option>
+                    <option value="+47">🇳🇴 +47</option>
+                    <option value="+45">🇩🇰 +45</option>
+                    <option value="+358">🇫🇮 +358</option>
+                    <option value="+353">🇮🇪 +353</option>
+                    <option value="+352">🇱🇺 +352</option>
+                    <option value="+354">🇮🇸 +354</option>
+                    <option value="+48">🇵🇱 +48</option>
+                    <option value="+420">🇨🇿 +420</option>
+                    <option value="+421">🇸🇰 +421</option>
+                    <option value="+36">🇭🇺 +36</option>
+                    <option value="+40">🇷🇴 +40</option>
+                    <option value="+359">🇧🇬 +359</option>
+                    <option value="+385">🇭🇷 +385</option>
+                    <option value="+386">🇸🇮 +386</option>
+                    <option value="+381">🇷🇸 +381</option>
+                    <option value="+382">🇲🇪 +382</option>
+                    <option value="+383">🇽🇰 +383</option>
+                    <option value="+387">🇧🇦 +387</option>
+                    <option value="+389">🇲🇰 +389</option>
+                    <option value="+355">🇦🇱 +355</option>
+                    <option value="+30">🇬🇷 +30</option>
+                    <option value="+357">🇨🇾 +357</option>
+                    <option value="+356">🇲🇹 +356</option>
+                    <option value="+370">🇱🇹 +370</option>
+                    <option value="+371">🇱🇻 +371</option>
+                    <option value="+372">🇪🇪 +372</option>
+                    <option value="+7">🇷🇺 +7</option>
+                    <option value="+380">🇺🇦 +380</option>
+                    <option value="+375">🇧🇾 +375</option>
+                    <option value="+373">🇲🇩 +373</option>
+                    <option value="+374">🇦🇲 +374</option>
+                    <option value="+994">🇦🇿 +994</option>
+                    <option value="+995">🇬🇪 +995</option>
+                    <option value="+7">🇰🇿 +7</option>
+                    <option value="+996">🇰🇬 +996</option>
+                    <option value="+992">🇹🇯 +992</option>
+                    <option value="+993">🇹🇲 +993</option>
+                    <option value="+998">🇺🇿 +998</option>
+                    <option value="+90">🇹🇷 +90</option>
+                    <option value="+972">🇮🇱 +972</option>
+                    <option value="+961">🇱🇧 +961</option>
+                    <option value="+962">🇯🇴 +962</option>
+                    <option value="+963">🇸🇾 +963</option>
+                    <option value="+964">🇮🇶 +964</option>
+                    <option value="+966">🇸🇦 +966</option>
+                    <option value="+971">🇦🇪 +971</option>
+                    <option value="+974">🇶🇦 +974</option>
+                    <option value="+965">🇰🇼 +965</option>
+                    <option value="+968">🇴🇲 +968</option>
+                    <option value="+973">🇧🇭 +973</option>
+                    <option value="+967">🇾🇪 +967</option>
+                    <option value="+970">🇵🇸 +970</option>
+                    <option value="+98">🇮🇷 +98</option>
+                    <option value="+93">🇦🇫 +93</option>
+                    <option value="+92">🇵🇰 +92</option>
+                    <option value="+91">🇮🇳 +91</option>
+                    <option value="+94">🇱🇰 +94</option>
+                    <option value="+977">🇳🇵 +977</option>
+                    <option value="+880">🇧🇩 +880</option>
+                    <option value="+975">🇧🇹 +975</option>
+                    <option value="+960">🇲🇻 +960</option>
+                    <option value="+86">🇨🇳 +86</option>
+                    <option value="+81">🇯🇵 +81</option>
+                    <option value="+82">🇰🇷 +82</option>
+                    <option value="+850">🇰🇵 +850</option>
+                    <option value="+886">🇹🇼 +886</option>
+                    <option value="+852">🇭🇰 +852</option>
+                    <option value="+853">🇲🇴 +853</option>
+                    <option value="+976">🇲🇳 +976</option>
+                    <option value="+84">🇻🇳 +84</option>
+                    <option value="+66">🇹🇭 +66</option>
+                    <option value="+855">🇰🇭 +855</option>
+                    <option value="+856">🇱🇦 +856</option>
+                    <option value="+95">🇲🇲 +95</option>
+                    <option value="+60">🇲🇾 +60</option>
+                    <option value="+65">🇸🇬 +65</option>
+                    <option value="+62">🇮🇩 +62</option>
+                    <option value="+63">🇵🇭 +63</option>
+                    <option value="+673">🇧🇳 +673</option>
+                    <option value="+670">🇹🇱 +670</option>
+                    <option value="+61">🇦🇺 +61</option>
+                    <option value="+64">🇳🇿 +64</option>
+                    <option value="+679">🇫🇯 +679</option>
+                    <option value="+675">🇵🇬 +675</option>
+                    <option value="+677">🇸🇧 +677</option>
+                    <option value="+678">🇻🇺 +678</option>
+                    <option value="+676">🇹🇴 +676</option>
+                    <option value="+685">🇼🇸 +685</option>
+                    <option value="+686">🇰🇮 +686</option>
+                    <option value="+688">🇹🇻 +688</option>
+                    <option value="+690">🇹🇰 +690</option>
+                    <option value="+692">🇲🇭 +692</option>
+                    <option value="+691">🇫🇲 +691</option>
+                    <option value="+680">🇵🇼 +680</option>
+                    <option value="+682">🇨🇰 +682</option>
+                    <option value="+683">🇳🇺 +683</option>
+                    <option value="+687">🇳🇨 +687</option>
+                    <option value="+689">🇵🇫 +689</option>
+                    <option value="+20">🇪🇬 +20</option>
+                    <option value="+212">🇲🇦 +212</option>
+                    <option value="+213">🇩🇿 +213</option>
+                    <option value="+216">🇹🇳 +216</option>
+                    <option value="+218">🇱🇾 +218</option>
+                    <option value="+222">🇲🇷 +222</option>
+                    <option value="+221">🇸🇳 +221</option>
+                    <option value="+223">🇲🇱 +223</option>
+                    <option value="+224">🇬🇳 +224</option>
+                    <option value="+225">🇨🇮 +225</option>
+                    <option value="+226">🇧🇫 +226</option>
+                    <option value="+227">🇳🇪 +227</option>
+                    <option value="+228">🇹🇬 +228</option>
+                    <option value="+229">🇧🇯 +229</option>
+                    <option value="+220">🇬🇲 +220</option>
+                    <option value="+245">🇬🇼 +245</option>
+                    <option value="+238">🇨🇻 +238</option>
+                    <option value="+232">🇸🇱 +232</option>
+                    <option value="+231">🇱🇷 +231</option>
+                    <option value="+233">🇬🇭 +233</option>
+                    <option value="+234">🇳🇬 +234</option>
+                    <option value="+237">🇨🇲 +237</option>
+                    <option value="+240">🇬🇶 +240</option>
+                    <option value="+241">🇬🇦 +241</option>
+                    <option value="+242">🇨🇬 +242</option>
+                    <option value="+243">🇨🇩 +243</option>
+                    <option value="+236">🇨🇫 +236</option>
+                    <option value="+235">🇹🇩 +235</option>
+                    <option value="+239">🇸🇹 +239</option>
+                    <option value="+244">🇦🇴 +244</option>
+                    <option value="+264">🇳🇦 +264</option>
+                    <option value="+267">🇧🇼 +267</option>
+                    <option value="+263">🇿🇼 +263</option>
+                    <option value="+260">🇿🇲 +260</option>
+                    <option value="+265">🇲🇼 +265</option>
+                    <option value="+258">🇲🇿 +258</option>
+                    <option value="+261">🇲🇬 +261</option>
+                    <option value="+230">🇲🇺 +230</option>
+                    <option value="+269">🇰🇲 +269</option>
+                    <option value="+248">🇸🇨 +248</option>
+                    <option value="+266">🇱🇸 +266</option>
+                    <option value="+268">🇸🇿 +268</option>
+                    <option value="+27">🇿🇦 +27</option>
+                    <option value="+254">🇰🇪 +254</option>
+                    <option value="+255">🇹🇿 +255</option>
+                    <option value="+256">🇺🇬 +256</option>
+                    <option value="+257">🇧🇮 +257</option>
+                    <option value="+250">🇷🇼 +250</option>
+                    <option value="+253">🇩🇯 +253</option>
+                    <option value="+251">🇪🇹 +251</option>
+                    <option value="+252">🇸🇴 +252</option>
+                    <option value="+291">🇪🇷 +291</option>
+                    <option value="+249">🇸🇩 +249</option>
+                    <option value="+211">🇸🇸 +211</option>
+                  </select>
+                  <input type="tel" class="phone-number" name="whatsapp" placeholder="000-0000" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>¿Dónde estás ahora?</label>
+                <select name="situacion" required>
+                  <option value="" disabled selected>Selecciona tu situación</option>
+                  <option>Trabajo y quiero emprender</option>
+                  <option>Tengo negocio pero sin sistema</option>
+                  <option>Ya facturo, quiero escalar</option>
+                  <option>Líder que quiere construir equipo</option>
+                </select>
+              </div>
+              <!-- A2P 10DLC SMS Consent — required by CTIA / GoHighLevel TrustCenter -->
+              <div class="sms-consent">
+                <label class="sms-consent-label">
+                  <input type="checkbox" name="sms_consent" id="smsConsent" required />
+                  <span class="sms-consent-check"></span>
+                  <span class="sms-consent-text">
+                    By checking this box, you agree to receive recurring automated marketing and informational text messages (SMS/MMS) from <strong>Mentes Maestras</strong> at the phone number provided. Consent is not a condition of purchase. Message frequency varies. Message &amp; data rates may apply.
+                    Reply <strong>STOP</strong> to unsubscribe at any time. Reply <strong>HELP</strong> for help.
+                    View our <a href="/privacy-policy.html" target="_blank" class="sms-link">Privacy Policy</a> and <a href="/terms.html" target="_blank" class="sms-link">Terms of Service</a>.
+                  </span>
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-primary join-submit" id="joinSubmitBtn" disabled>→ Quiero mi lugar en el bootcamp</button>
+              <p class="join-legal">Gratuito registrarse · Solo 150 cupos disponibles · Sin spam</p>
+            </form>
+          </div>
+
+          <div class="join-success" id="joinSuccess">
+            <div class="join-success-icon">✓</div>
+            <h3>¡Estás dentro!</h3>
+            <p>Te contactamos en las próximas horas.<br />Bienvenido a Mentes Maestras.</p>
+            <span class="join-success-sub">El reloj ya corre.</span>
+          </div>
+
+        </div>
+
+      </div>
+  </section>
+
+  <!-- ═══ HERO ═══ -->
+  <section id="hero">
+    <div class="falling-pattern">
+      <div class="falling-pattern-streaks"></div>
+      <div class="falling-pattern-overlay"></div>
+    </div>
+    <div class="hero-bg"></div>
+    <div class="hero-noise"></div>
+    <div class="hero-line"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-line"></div>
+          <span>Mentorship · Liderazgo · Comunidad Latina</span>
+        </div>
+        <h1>Del turno<em>al trono.</em></h1>
+        <p class="hero-sub">
+          No naciste para aguantar turnos toda la vida.<br />
+          Naciste para <strong>construir algo que te sobreviva.</strong><br />
+          Aquí te damos el mapa que nadie te enseñó.
+        </p>
+        <div class="hero-ctas">
+          <a href="#planes" class="btn btn-primary">→ Quiero el mapa</a>
+          <a href="#about" class="btn btn-outline">Ver cómo funciona</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Vidas transformadas</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Años de Mastermind</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">1</div>
+            <div class="stat-label">Misión: Del turno al trono</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MANIFESTO STRIP ═══ -->
+  <div class="manifesto-strip">
+    <div class="marquee-track">
+      <span>Del Turno al Trono</span>
+      <span class="dot">✦</span>
+      <span>Disciplina para ganar</span>
+      <span class="dot">✦</span>
+      <span>Carácter para sostener</span>
+      <span class="dot">✦</span>
+      <span>No es suerte. Es sistema.</span>
+      <span class="dot">✦</span>
+      <span>Mentes Maestras</span>
+      <span class="dot">✦</span>
+      <span>Del Turno al Trono</span>
+      <span class="dot">✦</span>
+      <span>Disciplina para ganar</span>
+      <span class="dot">✦</span>
+      <span>Carácter para sostener</span>
+      <span class="dot">✦</span>
+      <span>No es suerte. Es sistema.</span>
+      <span class="dot">✦</span>
+      <span>Mentes Maestras</span>
+      <span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-logo-block">
+          <div class="about-logo-wrap">
+            <img src="logo.png" alt="Mentes Maestras Logo" />
+          </div>
+          <div class="manifesto-quote">
+            <p>
+              "Aquí no venimos a quejarnos.<br />
+              Venimos a construir.<br />
+              No vinimos a este país a sobrevivir.<br />
+              Vinimos a dominar con disciplina."
+            </p>
+          </div>
+        </div>
+        <div class="about-text">
+          <div class="tag">Nuestra historia</div>
+          <h2>Somos lo que no te enseñaron.</h2>
+          <p class="about-body">
+            Mentes Maestras nació donde muchos latinos vivimos: trabajando como bestias y pensando como empleados. <strong>No era falta de ganas. Era falta de dirección.</strong> Nos enseñaron a aguantar. No nos enseñaron a construir. Aquí no te vendemos motivación. Te damos identidad, sistema y tribu. Porque el dinero no cambia tu vida — <strong>la persona en que te conviertes, sí.</strong>
+          </p>
+          <div class="manifesto-line">
+            "No es suerte. Es sistema.<br />No es el momento. Eres tú."
+          </div>
+          <a href="#planes" class="btn btn-primary">→ Quiero pertenecer</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MÉTODO 3D ═══ -->
+  <section id="metodo" class="section">
+    <div class="container">
+      <div class="metodo-header">
+        <div class="tag">El método</div>
+        <h2>Disciplina → Dinero → Dominio</h2>
+        <p>No puedes escalar ingresos con mentalidad pequeña. Este es el orden.</p>
+      </div>
+      <div class="metodo-grid">
+        <div class="metodo-card">
+          <div class="metodo-num">1</div>
+          <div class="metodo-icon">Paso 01</div>
+          <h3>Disciplina</h3>
+          <p>Hábitos, límites, energía y entorno. Si tu cabeza no cambia, tu cuenta tampoco. Todo empieza aquí.</p>
+        </div>
+        <div class="metodo-card">
+          <div class="metodo-num">2</div>
+          <div class="metodo-icon">Paso 02</div>
+          <h3>Dinero</h3>
+          <p>Oferta, ventas, marketing y números. Aprende a ganar con sistema, no solo con esfuerzo.</p>
+        </div>
+        <div class="metodo-card">
+          <div class="metodo-num">3</div>
+          <div class="metodo-icon">Paso 03</div>
+          <h3>Dominio</h3>
+          <p>Sistemas, equipo, liderazgo e impacto. Cuando tú dejas de ser el único que sabe, el negocio escala.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SERVICIOS ═══ -->
+  <section id="servicios" class="section">
+    <div class="container">
+      <div class="services-header">
+        <div class="tag">Lo que hacemos</div>
+        <h2>Cuatro pilares.<br />Una transformación.</h2>
+        <p>No son cursos. Son sistemas de cambio.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-num">01 —</div>
+          <h3>Mentalidad de Dueño</h3>
+          <p>Destruimos la mentalidad del empleado que vive en ti aunque ya tengas tu propio negocio. Hábitos, límites, entorno y energía. Porque si tu cabeza no cambia, tu cuenta tampoco.</p>
+          <div class="service-arrow">→</div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">02 —</div>
+          <h3>Sistema de Ingresos</h3>
+          <p>Oferta clara. Precio justo. Cierre sin miedo. Construye un negocio que funcione cuando tú no estás. Si hoy te enfermas y todo se cae, esto es para ti.</p>
+          <div class="service-arrow">→</div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">03 —</div>
+          <h3>Liderazgo y Equipo</h3>
+          <p>Un líder sin equipo es solo alguien que trabaja solo con más responsabilidad. Aprende a reclutar, dirigir y retener personas que empujen hacia arriba.</p>
+          <div class="service-arrow">→</div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">04 —</div>
+          <h3>Tribu Mentes Maestras</h3>
+          <p>Tu entorno decide tu techo. Aquí te rodeas de latinos que construyen en serio: sin excusas, con números, con carácter. La tribu no te aplaude — te exige.</p>
+          <div class="service-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EVENTO ═══ -->
+  <section id="evento" class="section">
+    <div class="evento-bg-text">ABRIL 2026</div>
+    <div class="container">
+      <div class="evento-inner">
+        <div class="evento-left">
+          <div class="evento-date">
+            <span>●</span> Abril 2026 · Presencial · Cupos limitados
+          </div>
+          <h2>CUMBRE<br />MENTES<br />MAESTRAS</h2>
+          <div class="evento-subtitle">Una noche que cambia tu dirección</div>
+          <p class="evento-desc">
+            No vas a venir a escuchar conferencias. Vas a salir con un plan real, una red de contactos que empuja hacia arriba, y la claridad que llevas meses buscando. Una noche para que dejes de estar ocupado y empieces a estar enfocado.
+          </p>
+          <a href="#evento-form" class="btn btn-primary">→ Quiero mi lugar</a>
+        </div>
+        <div class="evento-right">
+          <ul class="evento-benefits">
+            <li>
+              <div class="benefit-icon">
+                <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+              </div>
+              <div class="benefit-text">
+                <strong>Claridad inmediata</strong>
+                Identificas exactamente dónde está el hueco en tu negocio o tu mentalidad. Sin rodeos.
+              </div>
+            </li>
+            <li>
+              <div class="benefit-icon">
+                <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+              </div>
+              <div class="benefit-text">
+                <strong>Método 3D en vivo</strong>
+                Disciplina, Dinero y Dominio aplicados a tu situación real. Estrategia que ejecutas el lunes.
+              </div>
+            </li>
+            <li>
+              <div class="benefit-icon">
+                <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+              </div>
+              <div class="benefit-text">
+                <strong>Conexión con la tribu</strong>
+                Comparte sala con latinos que ya están construyendo. Una sola conversación puede cambiar tu próximo año.
+              </div>
+            </li>
+            <li>
+              <div class="benefit-icon">
+                <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+              </div>
+              <div class="benefit-text">
+                <strong>Acceso directo a los mentores</strong>
+                Preguntas reales, respuestas directas. El tipo de claridad que no encuentras en ningún podcast.
+              </div>
+            </li>
+          </ul>
+          <a id="evento-form" href="#planes" class="btn btn-primary">→ Aplicar ahora — Cupos limitados</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PLANES ═══ -->
+  <section id="planes" class="section">
+    <div class="container">
+      <div class="planes-header">
+        <div class="tag">Mentoría</div>
+        <h2>Elige tu nivel.</h2>
+        <p>El único error es no decidir.</p>
+      </div>
+      <div class="planes-grid">
+
+        <!-- Plan 1 -->
+        <div class="plan-card">
+          <div class="plan-level">Nivel 01</div>
+          <h3>El Mapa</h3>
+          <p class="plan-for">Para el que trabaja duro pero necesita dirección. El esfuerzo ya no alcanza — necesitas claridad.</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-benefits">
+            <li>Acceso a la comunidad privada Mentes Maestras</li>
+            <li>Módulos del Método 3D completo</li>
+            <li>Revisión semanal de metas con la tribu</li>
+            <li>Biblioteca: ventas, finanzas, mentalidad</li>
+            <li>Check-in mensual grupal en vivo</li>
+          </ul>
+          <a href="#" class="btn btn-outline">Empezar con El Mapa →</a>
+        </div>
+
+        <!-- Plan 2 — Featured -->
+        <div class="plan-card featured">
+          <div class="plan-badge">Más elegido</div>
+          <div class="plan-level">Nivel 02</div>
+          <h3>El Sistema</h3>
+          <p class="plan-for">Para el que ya factura pero vive apagando incendios. Tienes ingresos. No tienes control.</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-benefits">
+            <li>Todo lo del plan anterior incluido</li>
+            <li>Sesión de diagnóstico 1:1 de tu negocio real</li>
+            <li>Seguimiento mensual personalizado con mentor</li>
+            <li>Plantillas de procesos, precios y equipo</li>
+            <li>Acceso a sesiones intensivas trimestrales</li>
+          </ul>
+          <a href="#" class="btn btn-primary">Quiero El Sistema →</a>
+        </div>
+
+        <!-- Plan 3 -->
+        <div class="plan-card">
+          <div class="plan-level">Nivel 03</div>
+          <h3>El Trono</h3>
+          <p class="plan-for">Para el líder que construye equipo, legado e impacto. No es para todos.</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-benefits">
+            <li>Todo lo de los planes anteriores</li>
+            <li>Mentoría directa con Juan y Sebas</li>
+            <li>Estrategia de liderazgo y equipos de alto rendimiento</li>
+            <li>Red exclusiva de empresarios Mentes Maestras</li>
+            <li>Mastermind trimestral presencial con líderes</li>
+          </ul>
+          <a href="#" class="btn btn-white">Aplicar al Trono →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TRIBU ═══ -->
+  <section id="tribu">
+    <div class="container">
+      <div class="tribu-inner">
+        <div class="tribu-left">
+          <h2>Las 4 Reglas<br />de la Tribu.</h2>
+          <p>Aquí no te juzgamos. Te empujamos. Te hablamos claro. Y te convertimos en alguien más. Esto no es comunidad — es responsabilidad compartida.</p>
+          <a href="#planes" class="btn btn-white">→ Unirme a la tribu</a>
+        </div>
+        <div class="reglas-grid">
+          <div class="regla-item">
+            <div class="regla-num">01</div>
+            <p>Responsabilidad extrema.<br />Sin excusas.</p>
+          </div>
+          <div class="regla-item">
+            <div class="regla-num">02</div>
+            <p>Acción diaria.<br />Aunque sea pequeña.</p>
+          </div>
+          <div class="regla-item">
+            <div class="regla-num">03</div>
+            <p>Cuentas claras.<br />Números o nada.</p>
+          </div>
+          <div class="regla-item">
+            <div class="regla-num">04</div>
+            <p>Impacto.<br />Creces tú, crece tu gente.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ RITUAL ═══ -->
+  <section id="ritual" class="section">
+    <div class="container">
+      <div class="ritual-header">
+        <div class="tag">La Revisión del Domingo</div>
+        <h2>Cinco preguntas.<br />Una semana mejor.</h2>
+        <p>Cada domingo la tribu responde. Esto crea identidad, pertenencia y velocidad.</p>
+      </div>
+      <div class="preguntas-list">
+        <div class="pregunta-item">
+          <div class="pregunta-num">01</div>
+          <p><strong>¿Qué gané esta semana?</strong></p>
+        </div>
+        <div class="pregunta-item">
+          <div class="pregunta-num">02</div>
+          <p><strong>¿Qué me faltó?</strong></p>
+        </div>
+        <div class="pregunta-item">
+          <div class="pregunta-num">03</div>
+          <p><strong>¿Qué aprendí?</strong></p>
+        </div>
+        <div class="pregunta-item">
+          <div class="pregunta-num">04</div>
+          <p><strong>¿Qué elimino?</strong></p>
+        </div>
+        <div class="pregunta-item">
+          <div class="pregunta-num">05</div>
+          <p><strong>¿Qué hago sí o sí el lunes?</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FINAL CTA ═══ -->
+  <section id="final-cta">
+    <div class="final-cta-glow"></div>
+    <div class="container">
+      <div class="final-cta-content">
+        <img src="logo.png" alt="Mentes Maestras" />
+        <h2>El mapa<em class="text-red">te espera.</em></h2>
+        <p>Si quieres otra vida, sé otra persona. El primer paso es decidir que ya fue suficiente.</p>
+        <div class="final-ctas">
+          <a href="#planes" class="btn btn-primary">→ Quiero el mapa ahora</a>
+          <a href="#evento" class="btn btn-outline">Ver el evento de abril</a>
+        </div>
+        <div class="final-tagline">Mentalidad de dueño. Vida de dueño. · Mentes Maestras</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <img src="logo.png" alt="Mentes Maestras" />
+        <div class="footer-text">© 2026 Mentes Maestras. Todos los derechos reservados.</div>
+        <div class="footer-slogan">Del Turno al Trono.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ══ COUNTRY DATA ══
+    const COUNTRIES = [
+      {iso:'US',name:'United States',code:'+1'},
+      {iso:'CA',name:'Canada',code:'+1'},
+      {iso:'MX',name:'Mexico',code:'+52'},
+      {iso:'GT',name:'Guatemala',code:'+502'},
+      {iso:'SV',name:'El Salvador',code:'+503'},
+      {iso:'HN',name:'Honduras',code:'+504'},
+      {iso:'NI',name:'Nicaragua',code:'+505'},
+      {iso:'CR',name:'Costa Rica',code:'+506'},
+      {iso:'PA',name:'Panama',code:'+507'},
+      {iso:'CU',name:'Cuba',code:'+53'},
+      {iso:'DO',name:'Dominican Republic',code:'+1-809'},
+      {iso:'HT',name:'Haiti',code:'+509'},
+      {iso:'JM',name:'Jamaica',code:'+1-876'},
+      {iso:'PR',name:'Puerto Rico',code:'+1-787'},
+      {iso:'TT',name:'Trinidad & Tobago',code:'+1-868'},
+      {iso:'BB',name:'Barbados',code:'+1-246'},
+      {iso:'GD',name:'Grenada',code:'+1-473'},
+      {iso:'LC',name:'Saint Lucia',code:'+1-758'},
+      {iso:'VC',name:'Saint Vincent',code:'+1-784'},
+      {iso:'AG',name:'Antigua & Barbuda',code:'+1-268'},
+      {iso:'DM',name:'Dominica',code:'+1-767'},
+      {iso:'KN',name:'Saint Kitts & Nevis',code:'+1-869'},
+      {iso:'CO',name:'Colombia',code:'+57'},
+      {iso:'VE',name:'Venezuela',code:'+58'},
+      {iso:'PE',name:'Peru',code:'+51'},
+      {iso:'CL',name:'Chile',code:'+56'},
+      {iso:'AR',name:'Argentina',code:'+54'},
+      {iso:'BR',name:'Brazil',code:'+55'},
+      {iso:'EC',name:'Ecuador',code:'+593'},
+      {iso:'BO',name:'Bolivia',code:'+591'},
+      {iso:'PY',name:'Paraguay',code:'+595'},
+      {iso:'UY',name:'Uruguay',code:'+598'},
+      {iso:'GY',name:'Guyana',code:'+592'},
+      {iso:'SR',name:'Suriname',code:'+597'},
+      {iso:'GB',name:'United Kingdom',code:'+44'},
+      {iso:'FR',name:'France',code:'+33'},
+      {iso:'DE',name:'Germany',code:'+49'},
+      {iso:'ES',name:'Spain',code:'+34'},
+      {iso:'IT',name:'Italy',code:'+39'},
+      {iso:'PT',name:'Portugal',code:'+351'},
+      {iso:'NL',name:'Netherlands',code:'+31'},
+      {iso:'BE',name:'Belgium',code:'+32'},
+      {iso:'CH',name:'Switzerland',code:'+41'},
+      {iso:'AT',name:'Austria',code:'+43'},
+      {iso:'SE',name:'Sweden',code:'+46'},
+      {iso:'NO',name:'Norway',code:'+47'},
+      {iso:'DK',name:'Denmark',code:'+45'},
+      {iso:'FI',name:'Finland',code:'+358'},
+      {iso:'IE',name:'Ireland',code:'+353'},
+      {iso:'LU',name:'Luxembourg',code:'+352'},
+      {iso:'IS',name:'Iceland',code:'+354'},
+      {iso:'PL',name:'Poland',code:'+48'},
+      {iso:'CZ',name:'Czech Republic',code:'+420'},
+      {iso:'SK',name:'Slovakia',code:'+421'},
+      {iso:'HU',name:'Hungary',code:'+36'},
+      {iso:'RO',name:'Romania',code:'+40'},
+      {iso:'BG',name:'Bulgaria',code:'+359'},
+      {iso:'HR',name:'Croatia',code:'+385'},
+      {iso:'SI',name:'Slovenia',code:'+386'},
+      {iso:'RS',name:'Serbia',code:'+381'},
+      {iso:'BA',name:'Bosnia & Herzegovina',code:'+387'},
+      {iso:'ME',name:'Montenegro',code:'+382'},
+      {iso:'MK',name:'North Macedonia',code:'+389'},
+      {iso:'AL',name:'Albania',code:'+355'},
+      {iso:'GR',name:'Greece',code:'+30'},
+      {iso:'CY',name:'Cyprus',code:'+357'},
+      {iso:'MT',name:'Malta',code:'+356'},
+      {iso:'LT',name:'Lithuania',code:'+370'},
+      {iso:'LV',name:'Latvia',code:'+371'},
+      {iso:'EE',name:'Estonia',code:'+372'},
+      {iso:'RU',name:'Russia',code:'+7'},
+      {iso:'UA',name:'Ukraine',code:'+380'},
+      {iso:'BY',name:'Belarus',code:'+375'},
+      {iso:'MD',name:'Moldova',code:'+373'},
+      {iso:'AM',name:'Armenia',code:'+374'},
+      {iso:'AZ',name:'Azerbaijan',code:'+994'},
+      {iso:'GE',name:'Georgia',code:'+995'},
+      {iso:'KZ',name:'Kazakhstan',code:'+7'},
+      {iso:'KG',name:'Kyrgyzstan',code:'+996'},
+      {iso:'TJ',name:'Tajikistan',code:'+992'},
+      {iso:'TM',name:'Turkmenistan',code:'+993'},
+      {iso:'UZ',name:'Uzbekistan',code:'+998'},
+      {iso:'TR',name:'Turkey',code:'+90'},
+      {iso:'IL',name:'Israel',code:'+972'},
+      {iso:'LB',name:'Lebanon',code:'+961'},
+      {iso:'JO',name:'Jordan',code:'+962'},
+      {iso:'SY',name:'Syria',code:'+963'},
+      {iso:'IQ',name:'Iraq',code:'+964'},
+      {iso:'SA',name:'Saudi Arabia',code:'+966'},
+      {iso:'AE',name:'UAE',code:'+971'},
+      {iso:'QA',name:'Qatar',code:'+974'},
+      {iso:'KW',name:'Kuwait',code:'+965'},
+      {iso:'OM',name:'Oman',code:'+968'},
+      {iso:'BH',name:'Bahrain',code:'+973'},
+      {iso:'YE',name:'Yemen',code:'+967'},
+      {iso:'IR',name:'Iran',code:'+98'},
+      {iso:'AF',name:'Afghanistan',code:'+93'},
+      {iso:'PK',name:'Pakistan',code:'+92'},
+      {iso:'IN',name:'India',code:'+91'},
+      {iso:'LK',name:'Sri Lanka',code:'+94'},
+      {iso:'NP',name:'Nepal',code:'+977'},
+      {iso:'BD',name:'Bangladesh',code:'+880'},
+      {iso:'BT',name:'Bhutan',code:'+975'},
+      {iso:'MV',name:'Maldives',code:'+960'},
+      {iso:'CN',name:'China',code:'+86'},
+      {iso:'JP',name:'Japan',code:'+81'},
+      {iso:'KR',name:'South Korea',code:'+82'},
+      {iso:'KP',name:'North Korea',code:'+850'},
+      {iso:'TW',name:'Taiwan',code:'+886'},
+      {iso:'HK',name:'Hong Kong',code:'+852'},
+      {iso:'MO',name:'Macau',code:'+853'},
+      {iso:'MN',name:'Mongolia',code:'+976'},
+      {iso:'VN',name:'Vietnam',code:'+84'},
+      {iso:'TH',name:'Thailand',code:'+66'},
+      {iso:'KH',name:'Cambodia',code:'+855'},
+      {iso:'LA',name:'Laos',code:'+856'},
+      {iso:'MM',name:'Myanmar',code:'+95'},
+      {iso:'MY',name:'Malaysia',code:'+60'},
+      {iso:'SG',name:'Singapore',code:'+65'},
+      {iso:'ID',name:'Indonesia',code:'+62'},
+      {iso:'PH',name:'Philippines',code:'+63'},
+      {iso:'BN',name:'Brunei',code:'+673'},
+      {iso:'TL',name:'Timor-Leste',code:'+670'},
+      {iso:'AU',name:'Australia',code:'+61'},
+      {iso:'NZ',name:'New Zealand',code:'+64'},
+      {iso:'FJ',name:'Fiji',code:'+679'},
+      {iso:'PG',name:'Papua New Guinea',code:'+675'},
+      {iso:'SB',name:'Solomon Islands',code:'+677'},
+      {iso:'VU',name:'Vanuatu',code:'+678'},
+      {iso:'TO',name:'Tonga',code:'+676'},
+      {iso:'WS',name:'Samoa',code:'+685'},
+      {iso:'EG',name:'Egypt',code:'+20'},
+      {iso:'MA',name:'Morocco',code:'+212'},
+      {iso:'DZ',name:'Algeria',code:'+213'},
+      {iso:'TN',name:'Tunisia',code:'+216'},
+      {iso:'LY',name:'Libya',code:'+218'},
+      {iso:'MR',name:'Mauritania',code:'+222'},
+      {iso:'SN',name:'Senegal',code:'+221'},
+      {iso:'ML',name:'Mali',code:'+223'},
+      {iso:'GN',name:'Guinea',code:'+224'},
+      {iso:'CI',name:'Ivory Coast',code:'+225'},
+      {iso:'BF',name:'Burkina Faso',code:'+226'},
+      {iso:'NE',name:'Niger',code:'+227'},
+      {iso:'TG',name:'Togo',code:'+228'},
+      {iso:'BJ',name:'Benin',code:'+229'},
+      {iso:'GM',name:'Gambia',code:'+220'},
+      {iso:'GW',name:'Guinea-Bissau',code:'+245'},
+      {iso:'CV',name:'Cape Verde',code:'+238'},
+      {iso:'SL',name:'Sierra Leone',code:'+232'},
+      {iso:'LR',name:'Liberia',code:'+231'},
+      {iso:'GH',name:'Ghana',code:'+233'},
+      {iso:'NG',name:'Nigeria',code:'+234'},
+      {iso:'CM',name:'Cameroon',code:'+237'},
+      {iso:'GQ',name:'Equatorial Guinea',code:'+240'},
+      {iso:'GA',name:'Gabon',code:'+241'},
+      {iso:'CG',name:'Congo',code:'+242'},
+      {iso:'CD',name:'DR Congo',code:'+243'},
+      {iso:'CF',name:'Central African Rep.',code:'+236'},
+      {iso:'TD',name:'Chad',code:'+235'},
+      {iso:'ST',name:'São Tomé & Príncipe',code:'+239'},
+      {iso:'AO',name:'Angola',code:'+244'},
+      {iso:'NA',name:'Namibia',code:'+264'},
+      {iso:'BW',name:'Botswana',code:'+267'},
+      {iso:'ZW',name:'Zimbabwe',code:'+263'},
+      {iso:'ZM',name:'Zambia',code:'+260'},
+      {iso:'MW',name:'Malawi',code:'+265'},
+      {iso:'MZ',name:'Mozambique',code:'+258'},
+      {iso:'MG',name:'Madagascar',code:'+261'},
+      {iso:'MU',name:'Mauritius',code:'+230'},
+      {iso:'KM',name:'Comoros',code:'+269'},
+      {iso:'SC',name:'Seychelles',code:'+248'},
+      {iso:'LS',name:'Lesotho',code:'+266'},
+      {iso:'SZ',name:'Eswatini',code:'+268'},
+      {iso:'ZA',name:'South Africa',code:'+27'},
+      {iso:'KE',name:'Kenya',code:'+254'},
+      {iso:'TZ',name:'Tanzania',code:'+255'},
+      {iso:'UG',name:'Uganda',code:'+256'},
+      {iso:'BI',name:'Burundi',code:'+257'},
+      {iso:'RW',name:'Rwanda',code:'+250'},
+      {iso:'DJ',name:'Djibouti',code:'+253'},
+      {iso:'ET',name:'Ethiopia',code:'+251'},
+      {iso:'SO',name:'Somalia',code:'+252'},
+      {iso:'ER',name:'Eritrea',code:'+291'},
+      {iso:'SD',name:'Sudan',code:'+249'},
+      {iso:'SS',name:'South Sudan',code:'+211'},
+    ];
+
+    let selectedCC = COUNTRIES[0];
+
+    function buildCCList(filter='') {
+      const list = document.getElementById('ccList');
+      const q = filter.toLowerCase();
+      const filtered = q
+        ? COUNTRIES.filter(c => c.name.toLowerCase().includes(q) || c.iso.toLowerCase().includes(q) || c.code.includes(q))
+        : COUNTRIES;
+      list.innerHTML = filtered.map(c => `
+        <div class="cc-item${c===selectedCC?' selected':''}" onclick="selectCC('${c.iso}')">
+          <span class="cc-item-iso">${c.iso}</span>
+          <span class="cc-item-name">${c.name}</span>
+          <span class="cc-item-code">${c.code}</span>
+        </div>
+      `).join('');
+    }
+
+    function toggleCC() {
+      const trigger = document.getElementById('ccTrigger');
+      const dropdown = document.getElementById('ccDropdown');
+      const isOpen = dropdown.classList.toggle('open');
+      trigger.classList.toggle('open', isOpen);
+      if (isOpen) {
+        document.getElementById('ccSearch').value = '';
+        buildCCList();
+        setTimeout(() => document.getElementById('ccSearch').focus(), 50);
+      }
+    }
+
+    function filterCC(val) { buildCCList(val); }
+
+    function selectCC(iso) {
+      selectedCC = COUNTRIES.find(c => c.iso === iso) || COUNTRIES[0];
+      document.getElementById('ccFlag').textContent = selectedCC.iso;
+      document.getElementById('ccVal').textContent = selectedCC.code;
+      document.getElementById('ccDropdown').classList.remove('open');
+      document.getElementById('ccTrigger').classList.remove('open');
+    }
+
+    document.addEventListener('click', function(e) {
+      const wrap = document.querySelector('.phone-wrap');
+      if (wrap && !wrap.contains(e.target)) {
+        document.getElementById('ccDropdown').classList.remove('open');
+        document.getElementById('ccTrigger').classList.remove('open');
+      }
+    });
+
+    // build on load
+    document.addEventListener('DOMContentLoaded', () => {
+      buildCCList();
+      const cb  = document.getElementById('smsConsent');
+      const btn = document.getElementById('joinSubmitBtn');
+      if (cb && btn) {
+        cb.addEventListener('change', () => { btn.disabled = !cb.checked; });
+      }
+    });
+
+    // ── Join form submit → Formspree
+    async function handleJoinSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('joinForm');
+      const btn  = form.querySelector('.join-submit');
+      const data = new FormData(form);
+
+      // append country code + full whatsapp number
+      const code   = document.getElementById('ccVal').textContent;
+      const number = form.querySelector('.phone-number').value;
+      data.set('whatsapp', code + ' ' + number);
+
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('https://formspree.io/f/xnjggoye', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          document.getElementById('joinFormWrap').style.display = 'none';
+          document.getElementById('joinSuccess').style.display  = 'block';
+        } else {
+          btn.textContent = '→ Quiero mi lugar en el bootcamp';
+          btn.disabled = false;
+          alert('Hubo un error. Intenta de nuevo.');
+        }
+      } catch {
+        btn.textContent = '→ Quiero mi lugar en el bootcamp';
+        btn.disabled = false;
+        alert('Sin conexión. Intenta de nuevo.');
+      }
+    }
+
+    // ── Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
