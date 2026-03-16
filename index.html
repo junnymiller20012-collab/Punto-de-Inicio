@@ -2641,15 +2641,16 @@
       btn.textContent = 'Enviando...';
       btn.disabled = true;
 
-      // ── 1. GoHighLevel webhook
+      // ── 1. GoHighLevel Contacts API (primary)
       const ghlPayload = {
+        locationId:  'ZVleQWbdtp7RtPFsHDig',
         firstName:   nombre,
         lastName:    apellido,
         email:       email,
         phone:       phone,
         tags:        ['Punto de Inicio', 'Bootcamp Lead'],
-        customField: { situacion: situacion },
-        source:      'Punto de Inicio Landing Page'
+        source:      'Punto de Inicio Landing Page',
+        customFields: [{ key: 'situacion', value: situacion }]
       };
 
       // ── 2. Formspree backup
@@ -2658,10 +2659,14 @@
 
       try {
         const [ghlRes, fsRes] = await Promise.all([
-          fetch('https://services.leadconnectorhq.com/hooks/ZVleQWbdtp7RtPFsHDig/webhook-trigger/7e9bfd98-168a-460d-b300-b4f3b155a739', {
+          fetch('https://services.leadconnectorhq.com/contacts/', {
             method:  'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body:    JSON.stringify(ghlPayload)
+            headers: {
+              'Content-Type':  'application/json',
+              'Authorization': 'Bearer pit-3535c9c4-fd5e-4a16-9f31-df08d6456a41',
+              'Version':       '2021-07-28'
+            },
+            body: JSON.stringify(ghlPayload)
           }),
           fetch('https://formspree.io/f/xnjggoye', {
             method:  'POST',
